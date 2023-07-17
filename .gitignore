@@ -1,0 +1,12 @@
+*.iml
+*.pyc
+
+.coverage
+.idea/
+.mypy_cache/
+build/
+venv/
+src/*.egg-info
+
+docs/
+extras/tests/http-client.private.env.json

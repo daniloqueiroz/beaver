@@ -1,0 +1,49 @@
+###
+# @name HealthCheck
+// @no-log
+GET http://127.0.0.1:8000/health
+Accept: application/json
+
+
+###
+# @name GetConfiguration
+// @no-log
+GET http://127.0.0.1:8000/configurations
+Accept: application/json
+
+
+###
+# @name UpdateConfiguration
+// @no-log
+PUT http://127.0.0.1:8000/configurations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "ts_api_key": "{{ts_api_key}}"
+}
+
+###
+# @name ListEnvironments
+// @no-log
+GET http://127.0.0.1:8000/environments
+Accept: application/json
+
+
+###
+# @name CreateEnvironment
+// @no-log
+POST http://127.0.0.1:8000/environments
+Accept: application/json
+
+
+###
+# @name GetEnvironment
+// @no-log
+GET http://127.0.0.1:8000/environments/{{env_name}}
+
+
+###
+# @name DeleteEnvironment
+// @no-log
+DELETE http://127.0.0.1:8000/environments/{{env_name}}

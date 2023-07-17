@@ -1,0 +1,61 @@
+[project]
+name = "beaver"
+description = "A bare bones self hosted private development environments with Docker and Tailscale "
+version = "0.1.0"
+readme = "README.md"
+authors = [
+  { name = "Danilo Queiroz", email = "dpenna.queiroz@gmail.com" }
+]
+requires-python = ">=3.11"
+
+dependencies = [
+  "docker==6.1.3",
+  "fastapi==0.100.0",
+  "pydantic-yaml==1.0.0",
+  "pyyaml==5.3.1",
+  "uvicorn[standard]==0.23.0",
+]
+
+[project.optional-dependencies]
+development = [
+  "black",
+  "flake8",
+  "mypy",
+  "pytest",
+  "pytest-asyncio",
+  "pytest-cov",
+  "taskipy",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--disable-warnings --cov=app"
+testpaths = [
+  "test/",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.taskipy.tasks]
+format_src = "black src/"
+format_test = "black test/"
+
+mypy_src = "mypy src/"
+mypy_test = "mypy test/"
+
+lint_src = "flake8 --max-line-length 88 src/"
+lint_test = "flake8 --max-line-length 88 test/"
+
+build_docker = "docker build --network=host --tag daniloqueiroz/beaver:latest ."
+
+test = "pytest test/"
+mypy = "task mypy_src && task mypy_test"
+lint = "task lint_src && task lint_test"
+format = "task format_src && task format_test"
+build = "task lint && task mypy && task build_docker"
+
+dependencies = "pip install .[development] && pip list --outdated"
