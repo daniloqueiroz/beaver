@@ -1,5 +1,5 @@
 # Use the official Python image as the base image
-FROM python:3.11-alpine
+FROM python:3.12-alpine
 run pip install --upgrade pip 
 
 # Set the working directory inside the container
